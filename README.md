@@ -14,9 +14,11 @@ orm框架采用gorm
 接口：
 
   /v1/team/{id}      get Team by id
+  
   /v1/teams          query Team by something
   
   /v1/player/{id}    get Player by id
+  
   /v1/players        query Player by something
   
   /v1/playerData     query PlayerData by something
