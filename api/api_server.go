@@ -32,8 +32,12 @@ func ApiInit(r *gin.Engine) {
 func teamRegistry(c *gin.RouterGroup) {
 	c.GET("/team/:id", team.GetTeam)
 	c.GET("/teams", team.QueryTeam)
-}
 
+	c.GET("/player/:id", team.GetPlayer)
+	c.GET("/players", team.QueryPlayer)
+
+	c.GET("/playerData", team.QueryPlayerData)
+}
 
 //启动服务
 func NewServer() *Api {
@@ -41,6 +45,3 @@ func NewServer() *Api {
 		engine: gin.Default(),
 	}
 }
-
-
-

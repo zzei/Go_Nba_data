@@ -28,7 +28,7 @@ func PullPlayerData(url string, teamId int, teamName string) {
 			href, _ := selection.Find("span.c2 a").Attr("href")
 			doc1, _ := catch.PullData(href)
 			name := doc1.Find("div.gamecenter_content div.team_data h2").Text()
-			name = utils.FilterEnter(name[0:strings.Index(name,"）")+3])
+			name = utils.FilterEnter(name[0 : strings.Index(name, "）")+3])
 			img, _ := doc1.Find("div.gamecenter_content div.team_data div.content div.content_a div.img img").Attr("src")
 			var site string
 			var height string
@@ -43,25 +43,25 @@ func PullPlayerData(url string, teamId int, teamName string) {
 			doc1.Find("div.gamecenter_content div.team_data div.content div.content_a div.font p").Each(func(j int, selection1 *goquery.Selection) {
 				str := selection1.Text()
 				if strings.Contains(str, "位置") {
-					site = str[strings.Index(str,"：")+3:]
+					site = str[strings.Index(str, "：")+3:]
 				} else if strings.Contains(str, "身高") {
-					height = str[strings.Index(str,"：")+3:]
+					height = str[strings.Index(str, "：")+3:]
 				} else if strings.Contains(str, "体重") {
-					weight = str[strings.Index(str,"：")+3:]
+					weight = str[strings.Index(str, "：")+3:]
 				} else if strings.Contains(str, "生日") {
 					birthStr := str[strings.Index(str, "：")+3:]
-					birth,_ = time.Parse("2006-01-02", birthStr)
+					birth, _ = time.Parse("2006-01-02", birthStr)
 				} else if strings.Contains(str, "学校") {
-					school = str[strings.Index(str,"：")+3:]
+					school = str[strings.Index(str, "：")+3:]
 				} else if strings.Contains(str, "选秀") {
-					draft = str[strings.Index(str,"：")+3:]
+					draft = str[strings.Index(str, "：")+3:]
 				} else if strings.Contains(str, "国籍") {
-					country = str[strings.Index(str,"：")+3:]
+					country = str[strings.Index(str, "：")+3:]
 				} else if strings.Contains(str, "本赛季薪金") {
-					salaryStr := str[strings.Index(str,"：")+3:strings.Index(str, "万")]
-					salary,_ = strconv.ParseFloat(salaryStr, 64)
+					salaryStr := str[strings.Index(str, "：")+3 : strings.Index(str, "万")]
+					salary, _ = strconv.ParseFloat(salaryStr, 64)
 				} else if strings.Contains(str, "合同") {
-					contract = str[strings.Index(str,"：")+3:]
+					contract = str[strings.Index(str, "：")+3:]
 				} else {
 
 				}
@@ -87,6 +87,9 @@ func PullPlayerData(url string, teamId int, teamName string) {
 			//fmt.Println(player.Id)
 
 			dao.AddPlayer(&player)
+
+			//添加球员后 开始抓取球员数据
+			PullPlayerDataData(href, player.Id)
 		}
 	})
 }

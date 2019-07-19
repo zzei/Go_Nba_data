@@ -1,29 +1,32 @@
 package main
 
 import (
+	"NBAdata/api"
 	"NBAdata/catch/team"
 	"NBAdata/dao"
 	_ "NBAdata/inital"
 )
+
 func main() {
 	//inital 连接db
 
 	//建表
-	initTable()
+	//initTable()
 
 	//抓数据
-	//initTeamData()
-	//initPlayerData()
 
+	//initTeamData()	//已集成球员和球员数据
+	//initPlayerData()
+	//initPlayerDataData()
 
 	//启动服务
-	//api.NewServer().Start()
+	api.NewServer().Start()
 }
 
 func initTable() {
 	//nba球队信息
-	//dao.CreateTeam()
-	//dao.CreatePlayer()
+	dao.CreateTeam()
+	dao.CreatePlayer()
 	dao.CreatePlayerData()
 }
 
@@ -33,4 +36,8 @@ func initTeamData() {
 
 func initPlayerData() {
 	team.PullPlayerData("https://nba.hupu.com/teams/rockets", 1, "火箭")
+}
+
+func initPlayerDataData() {
+	team.PullPlayerDataData("https://nba.hupu.com/players/russellwestbrook-3016.html", 1)
 }

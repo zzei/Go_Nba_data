@@ -1,7 +1,97 @@
 basePath: '{{.BasePath}}'
 definitions:
+  model.PlayerDataSerializer:
+    properties:
+      assist:
+        type: number
+      block:
+        type: number
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      firstTimes:
+        type: integer
+      floorTime:
+        type: number
+      foul:
+        type: number
+      hit:
+        type: string
+      id:
+        type: integer
+      miss:
+        type: number
+      penaltyHit:
+        type: string
+      penaltyShot:
+        type: string
+      playerId:
+        type: integer
+      rebound:
+        type: number
+      score:
+        type: number
+      season:
+        type: string
+      shot:
+        type: string
+      steal:
+        type: number
+      team:
+        type: string
+      threeHit:
+        type: string
+      threeShot:
+        type: string
+      times:
+        type: integer
+      type:
+        type: integer
+    type: object
+  model.PlayerSerializer:
+    properties:
+      birth:
+        type: string
+      career_age:
+        type: integer
+      contract:
+        type: string
+      country:
+        type: string
+      create_at:
+        type: string
+      delete_at:
+        type: string
+      draft:
+        type: string
+      face_img:
+        type: string
+      height:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      number:
+        type: string
+      salary:
+        type: number
+      school:
+        type: string
+      site:
+        type: string
+      team_id:
+        type: integer
+      team_name:
+        type: string
+      weight:
+        type: string
+    type: object
   model.TeamSerializer:
     properties:
+      all_name:
+        type: string
       area:
         type: string
       city:
@@ -12,11 +102,17 @@ definitions:
         type: string
       id:
         type: integer
+      info:
+        type: string
       logo:
         type: string
       name:
         type: string
+      stadium:
+        type: string
       subarea:
+        type: string
+      website:
         type: string
     type: object
 host: '{{.Host}}'
@@ -27,6 +123,83 @@ info:
   title: '{{.Title}}'
   version: '{{.Version}}'
 paths:
+  /v1/player/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.PlayerSerializer'
+            type: object
+      summary: get Player by id
+      tags:
+      - Player
+  /v1/playerData:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: player_id
+        in: query
+        name: player_id
+        required: true
+        type: integer
+      - description: type
+        in: query
+        name: type
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.PlayerDataSerializer'
+            type: array
+      summary: query PlayerData by something
+      tags:
+      - PlayerData
+  /v1/players:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: name
+        in: query
+        name: name
+        type: string
+      - description: team_name
+        in: query
+        name: team_name
+        type: string
+      - description: site
+        in: query
+        name: site
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.PlayerSerializer'
+            type: array
+      summary: query Player by something
+      tags:
+      - Player
   /v1/team/{id}:
     get:
       consumes:

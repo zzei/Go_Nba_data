@@ -10,6 +10,124 @@
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/v1/player/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "get Player by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.PlayerSerializer"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/playerData": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PlayerData"
+                ],
+                "summary": "query PlayerData by something",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "player_id",
+                        "name": "player_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "type",
+                        "name": "type",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.PlayerDataSerializer"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/players": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "query Player by something",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "team_name",
+                        "name": "team_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "site",
+                        "name": "site",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.PlayerSerializer"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v1/team/{id}": {
             "get": {
                 "consumes": [
@@ -89,9 +207,145 @@
         }
     },
     "definitions": {
+        "model.PlayerDataSerializer": {
+            "type": "object",
+            "properties": {
+                "assist": {
+                    "type": "number"
+                },
+                "block": {
+                    "type": "number"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "firstTimes": {
+                    "type": "integer"
+                },
+                "floorTime": {
+                    "type": "number"
+                },
+                "foul": {
+                    "type": "number"
+                },
+                "hit": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "miss": {
+                    "type": "number"
+                },
+                "penaltyHit": {
+                    "type": "string"
+                },
+                "penaltyShot": {
+                    "type": "string"
+                },
+                "playerId": {
+                    "type": "integer"
+                },
+                "rebound": {
+                    "type": "number"
+                },
+                "score": {
+                    "type": "number"
+                },
+                "season": {
+                    "type": "string"
+                },
+                "shot": {
+                    "type": "string"
+                },
+                "steal": {
+                    "type": "number"
+                },
+                "team": {
+                    "type": "string"
+                },
+                "threeHit": {
+                    "type": "string"
+                },
+                "threeShot": {
+                    "type": "string"
+                },
+                "times": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.PlayerSerializer": {
+            "type": "object",
+            "properties": {
+                "birth": {
+                    "type": "string"
+                },
+                "career_age": {
+                    "type": "integer"
+                },
+                "contract": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "create_at": {
+                    "type": "string"
+                },
+                "delete_at": {
+                    "type": "string"
+                },
+                "draft": {
+                    "type": "string"
+                },
+                "face_img": {
+                    "type": "string"
+                },
+                "height": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "salary": {
+                    "type": "number"
+                },
+                "school": {
+                    "type": "string"
+                },
+                "site": {
+                    "type": "string"
+                },
+                "team_id": {
+                    "type": "integer"
+                },
+                "team_name": {
+                    "type": "string"
+                },
+                "weight": {
+                    "type": "string"
+                }
+            }
+        },
         "model.TeamSerializer": {
             "type": "object",
             "properties": {
+                "all_name": {
+                    "type": "string"
+                },
                 "area": {
                     "type": "string"
                 },
@@ -107,13 +361,22 @@
                 "id": {
                     "type": "integer"
                 },
+                "info": {
+                    "type": "string"
+                },
                 "logo": {
                     "type": "string"
                 },
                 "name": {
                     "type": "string"
                 },
+                "stadium": {
+                    "type": "string"
+                },
                 "subarea": {
+                    "type": "string"
+                },
+                "website": {
                     "type": "string"
                 }
             }
